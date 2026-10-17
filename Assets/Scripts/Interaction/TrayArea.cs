@@ -8,7 +8,7 @@ namespace PlateCheck.Interaction
     {
         [Tooltip("The tray surface. Its scale on X and Z is the drop area.")]
         [SerializeField] Transform surface;
-        [SerializeField] int columns = 2;
+        [SerializeField] int columns = 3;
         [SerializeField] float margin = 0.05f;
 
         public Vector3 Center => surface.position;
@@ -23,7 +23,7 @@ namespace PlateCheck.Interaction
         public void Layout(IReadOnlyList<FoodItemView> items)
         {
             var size = surface.lossyScale;
-            int rows = Mathf.Max(4, Mathf.CeilToInt(items.Count / (float)columns));
+            int rows = Mathf.Max(3, Mathf.CeilToInt(items.Count / (float)columns));
             float cellX = size.x / columns;
             float cellZ = size.z / rows;
             for (int i = 0; i < items.Count; i++)
@@ -32,7 +32,7 @@ namespace PlateCheck.Interaction
                 int row = i / columns;
                 var offset = new Vector3(
                     -size.x / 2f + cellX * (column + 0.5f), 0f,
-                    size.z / 2f - cellZ * (row + 0.5f));
+                    -size.z / 2f + cellZ * (row + 0.5f)); // front row first, clear of the side panels
                 items[i].transform.position = new Vector3(surface.position.x, surface.position.y + size.y / 2f, surface.position.z) + offset;
             }
         }

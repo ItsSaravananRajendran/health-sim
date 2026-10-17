@@ -137,12 +137,12 @@ namespace PlateCheck.EditorTools
             var camera = cameraObject.AddComponent<Camera>();
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.78f, 0.84f, 0.88f);
-            camera.fieldOfView = 50f;
+            camera.fieldOfView = 52f;
             camera.nearClipPlane = 0.05f;
             cameraObject.AddComponent<AudioListener>();
             cameraObject.AddComponent<PhysicsRaycaster>();
-            cameraObject.transform.position = new Vector3(0.2f, 1.62f, -0.95f);
-            cameraObject.transform.LookAt(new Vector3(0.2f, 0.98f, 0.8f));
+            cameraObject.transform.position = new Vector3(0.22f, 1.62f, -0.85f);
+            cameraObject.transform.LookAt(new Vector3(0.22f, 0.86f, 0.7f));
 
             var light = new GameObject("Directional Light").AddComponent<Light>();
             light.type = LightType.Directional;
@@ -174,21 +174,21 @@ namespace PlateCheck.EditorTools
             var plateRoot = new GameObject("Plate Area");
             plateRoot.transform.SetParent(room.transform);
             var plate = Shape(PrimitiveType.Cylinder, "Plate", plateRoot.transform, new Vector3(-0.3f, TableTop + 0.01f, 0.55f),
-                new Vector3(0.75f, 0.01f, 0.75f), Mat("Plate", Color.white));
+                new Vector3(0.9f, 0.01f, 0.9f), Mat("Plate", Color.white));
             Object.DestroyImmediate(plate.GetComponent<Collider>()); // drops are found by position, not raycast
-            var cup = Shape(PrimitiveType.Cylinder, "Cup Spot", plateRoot.transform, new Vector3(0.2f, TableTop + 0.005f, 0.82f),
-                new Vector3(0.18f, 0.005f, 0.18f), Mat("Cup Spot", new Color(0.80f, 0.88f, 0.95f)));
+            var cup = Shape(PrimitiveType.Cylinder, "Cup Spot", plateRoot.transform, new Vector3(0.27f, TableTop + 0.005f, 0.85f),
+                new Vector3(0.2f, 0.005f, 0.2f), Mat("Cup Spot", new Color(0.80f, 0.88f, 0.95f)));
             Object.DestroyImmediate(cup.GetComponent<Collider>());
             plateCenter = new GameObject("Plate Center").transform;
             plateCenter.SetParent(plateRoot.transform);
             plateCenter.position = new Vector3(-0.3f, SurfaceTop, 0.55f);
             cupSpot = new GameObject("Cup Spot Center").transform;
             cupSpot.SetParent(plateRoot.transform);
-            cupSpot.position = new Vector3(0.2f, TableTop + 0.01f, 0.82f);
+            cupSpot.position = new Vector3(0.27f, TableTop + 0.01f, 0.85f);
 
             var trayRoot = new GameObject("Tray Area");
             trayRoot.transform.SetParent(room.transform);
-            var tray = Box("Tray", trayRoot.transform, new Vector3(0.75f, TableTop + 0.01f, 0.55f), new Vector3(0.55f, 0.02f, 0.85f),
+            var tray = Box("Tray", trayRoot.transform, new Vector3(0.82f, TableTop + 0.01f, 0.55f), new Vector3(0.68f, 0.02f, 0.8f),
                 Mat("Tray", new Color(0.35f, 0.40f, 0.48f)));
             Object.DestroyImmediate(tray.GetComponent<Collider>());
             traySurface = tray.transform;
@@ -198,10 +198,10 @@ namespace PlateCheck.EditorTools
             client.transform.position = new Vector3(0.2f, 0f, 1.55f);
             var body = Shape(PrimitiveType.Capsule, "Body", client.transform, Vector3.zero, new Vector3(0.55f, 0.5f, 0.4f),
                 Mat("Client Shirt", new Color(0.35f, 0.50f, 0.75f)));
-            body.transform.localPosition = new Vector3(0f, 0.78f, 0f); // seated
+            body.transform.localPosition = new Vector3(0f, 0.72f, 0f); // seated
             var head = Shape(PrimitiveType.Sphere, "Head", client.transform, Vector3.zero, Vector3.one * 0.32f,
                 Mat("Client Skin", new Color(0.62f, 0.45f, 0.34f)));
-            head.transform.localPosition = new Vector3(0f, 1.44f, 0f);
+            head.transform.localPosition = new Vector3(0f, 1.37f, 0f);
             clientBody = body.GetComponent<Renderer>();
             clientHead = head.transform;
             return room;
@@ -250,6 +250,11 @@ namespace PlateCheck.EditorTools
             material.SetFloat(ShaderUtilities.ID_FaceDilate, 0.15f);
             material.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.3f);
             material.SetColor(ShaderUtilities.ID_OutlineColor, new Color32(20, 20, 30, 255));
+            // A soft dark glow behind the letters keeps labels legible on light and dark surfaces.
+            material.EnableKeyword(ShaderUtilities.Keyword_Underlay);
+            material.SetColor(ShaderUtilities.ID_UnderlayColor, new Color(0f, 0f, 0f, 0.75f));
+            material.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0.6f);
+            material.SetFloat(ShaderUtilities.ID_UnderlaySoftness, 0.6f);
             EditorUtility.SetDirty(material);
             return material;
         }
@@ -275,7 +280,7 @@ namespace PlateCheck.EditorTools
             var hudRoot = MakeRect("HUD", canvas, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             var instructionBar = MakePanel("Instruction", hudRoot, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, -80), new Vector2(0, -30), PanelColor);
             var instruction = MakeText("Text", instructionBar, "", 19, TextAlignmentOptions.MidlineLeft, Color.white, 20);
-            var speech = MakePanel("Client Speech", hudRoot, new Vector2(0.2f, 1), new Vector2(0.8f, 1), new Vector2(0, -150), new Vector2(0, -90), BubbleColor);
+            var speech = MakePanel("Client Speech", hudRoot, new Vector2(0.55f, 1), new Vector2(0.97f, 1), new Vector2(0, -172), new Vector2(0, -92), BubbleColor);
             var speechText = MakeText("Text", speech, "", 18, TextAlignmentOptions.Center, DarkText, 14);
             var ready = MakeButton("Ready Button", hudRoot, "Ready to help", new Vector2(1, 0), new Vector2(1, 0), new Vector2(-260, 24), new Vector2(-24, 84));
             hud = hudRoot.gameObject.AddComponent<HudView>();
@@ -324,7 +329,7 @@ namespace PlateCheck.EditorTools
 
             // Feedback: client reaction bubble and Continue.
             var feedbackRoot = MakeRect("Feedback", canvas, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-            var reactionBubble = MakePanel("Reaction", feedbackRoot, new Vector2(0.2f, 1), new Vector2(0.8f, 1), new Vector2(0, -170), new Vector2(0, -90), BubbleColor);
+            var reactionBubble = MakePanel("Reaction", feedbackRoot, new Vector2(0.55f, 1), new Vector2(0.97f, 1), new Vector2(0, -172), new Vector2(0, -92), BubbleColor);
             var reaction = MakeText("Text", reactionBubble, "", 20, TextAlignmentOptions.Center, DarkText, 14);
             var continueButton = MakeButton("Continue Button", feedbackRoot, "Continue", new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(-120, 30), new Vector2(120, 90));
             feedback = feedbackRoot.gameObject.AddComponent<FeedbackView>();

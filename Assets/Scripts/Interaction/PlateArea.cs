@@ -13,11 +13,11 @@ namespace PlateCheck.Interaction
     public class PlateArea : MonoBehaviour
     {
         [SerializeField] Transform plateCenter;
-        [SerializeField] float plateRadius = 0.36f;
+        [SerializeField] float plateRadius = 0.43f;
         [SerializeField] Transform cupSpot;
-        [SerializeField] float cupSpotRadius = 0.12f;
+        [SerializeField] float cupSpotRadius = 0.15f;
         [Tooltip("Radius of the ring the foods sit on.")]
-        [SerializeField] float ringRadius = 0.23f;
+        [SerializeField] float ringRadius = 0.26f;
         [SerializeField] TMP_Text totalsText;
         [SerializeField] GameObject totalsRoot;
 
@@ -46,7 +46,7 @@ namespace PlateCheck.Interaction
             }
 
             for (int i = 0; i < drinks.Count; i++)
-                drinks[i].transform.position = cupSpot.position + new Vector3(0f, 0f, -0.11f * i);
+                drinks[i].transform.position = cupSpot.position + new Vector3(0f, 0f, -0.13f * i);
         }
 
         public void ShowTotals(bool visible, BucketShares shares = null)

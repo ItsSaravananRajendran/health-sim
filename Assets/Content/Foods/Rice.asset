@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Rice
   foodGroup: 2
   portionUnits: 2
+  shape: 5
   color: {r: 0.96, g: 0.94, b: 0.86, a: 1}
   isDrink: 0

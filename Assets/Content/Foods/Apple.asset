@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Apple
   foodGroup: 1
   portionUnits: 1
+  shape: 4
   color: {r: 0.85, g: 0.15, b: 0.15, a: 1}
   isDrink: 0

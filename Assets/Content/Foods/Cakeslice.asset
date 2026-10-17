@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Cake slice
   foodGroup: 5
   portionUnits: 2
+  shape: 10
   color: {r: 0.95, g: 0.6, b: 0.75, a: 1}
   isDrink: 0

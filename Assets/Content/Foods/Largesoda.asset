@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Large soda
   foodGroup: 5
   portionUnits: 2
+  shape: 11
   color: {r: 0.3, g: 0.15, b: 0.1, a: 1}
   isDrink: 1

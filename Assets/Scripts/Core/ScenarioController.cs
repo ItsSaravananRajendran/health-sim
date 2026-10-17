@@ -40,6 +40,7 @@ namespace PlateCheck
         public PlateVariantData CurrentVariant => variants[VariantIndex];
         public CounselingOptionData ChosenOption { get; private set; }
         public bool CanRearrange => !State.PlateLocked;
+        public bool CanInteract => State.Phase == Phase.Assess || State.Phase == Phase.Act;
         public PlateArea PlateArea => plateArea;
         public TrayArea TrayArea => trayArea;
         public DebriefScreen DebriefScreen => debriefScreen;

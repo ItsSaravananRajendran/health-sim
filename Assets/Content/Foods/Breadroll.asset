@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Bread roll
   foodGroup: 2
   portionUnits: 1
+  shape: 6
   color: {r: 0.8, g: 0.6, b: 0.35, a: 1}
   isDrink: 0

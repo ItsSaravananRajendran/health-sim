@@ -27,28 +27,38 @@ namespace PlateCheck.EditorTools
             Directory.CreateDirectory(OptionsDir);
 
             var foods = new Dictionary<string, FoodItemData>();
-            void Food(string name, FoodGroup group, int units, Color color, bool drink = false) =>
-                foods[name] = GetOrCreate<FoodItemData>($"{FoodsDir}/{name.Replace(" ", "")}.asset", f =>
+            void Food(string name, FoodGroup group, int units, Color color, FoodShape shape, bool drink = false)
+            {
+                var food = GetOrCreate<FoodItemData>($"{FoodsDir}/{name.Replace(" ", "")}.asset", f =>
                 {
                     f.displayName = name;
                     f.foodGroup = group;
                     f.portionUnits = units;
                     f.color = color;
+                    f.shape = shape;
                     f.isDrink = drink;
                 });
+                // Foods created before models existed are still Simple: give them their model.
+                if (food.shape == FoodShape.Simple && shape != FoodShape.Simple)
+                {
+                    food.shape = shape;
+                    EditorUtility.SetDirty(food);
+                }
+                foods[name] = food;
+            }
 
-            Food("Broccoli", FoodGroup.Vegetable, 2, new Color(0.18f, 0.55f, 0.20f));
-            Food("Salad", FoodGroup.Vegetable, 2, new Color(0.55f, 0.82f, 0.32f));
-            Food("Carrots", FoodGroup.Vegetable, 1, new Color(0.98f, 0.55f, 0.12f));
-            Food("Apple", FoodGroup.Fruit, 1, new Color(0.85f, 0.15f, 0.15f));
-            Food("Rice", FoodGroup.Grain, 2, new Color(0.96f, 0.94f, 0.86f));
-            Food("Bread roll", FoodGroup.Grain, 1, new Color(0.80f, 0.60f, 0.35f));
-            Food("Grilled chicken", FoodGroup.Protein, 2, new Color(0.70f, 0.45f, 0.25f));
-            Food("Beans", FoodGroup.Protein, 1, new Color(0.50f, 0.20f, 0.15f));
-            Food("Milk", FoodGroup.Dairy, 1, new Color(0.97f, 0.97f, 1.00f), drink: true);
-            Food("Cake slice", FoodGroup.Sweet, 2, new Color(0.95f, 0.60f, 0.75f));
-            Food("Large soda", FoodGroup.Sweet, 2, new Color(0.30f, 0.15f, 0.10f), drink: true);
-            Food("Fries", FoodGroup.Fried, 2, new Color(0.95f, 0.80f, 0.20f));
+            Food("Broccoli", FoodGroup.Vegetable, 2, new Color(0.18f, 0.55f, 0.20f), FoodShape.Broccoli);
+            Food("Salad", FoodGroup.Vegetable, 2, new Color(0.55f, 0.82f, 0.32f), FoodShape.Salad);
+            Food("Carrots", FoodGroup.Vegetable, 1, new Color(0.98f, 0.55f, 0.12f), FoodShape.Carrots);
+            Food("Apple", FoodGroup.Fruit, 1, new Color(0.85f, 0.15f, 0.15f), FoodShape.Apple);
+            Food("Rice", FoodGroup.Grain, 2, new Color(0.96f, 0.94f, 0.86f), FoodShape.Rice);
+            Food("Bread roll", FoodGroup.Grain, 1, new Color(0.80f, 0.60f, 0.35f), FoodShape.BreadRoll);
+            Food("Grilled chicken", FoodGroup.Protein, 2, new Color(0.70f, 0.45f, 0.25f), FoodShape.GrilledChicken);
+            Food("Beans", FoodGroup.Protein, 1, new Color(0.50f, 0.20f, 0.15f), FoodShape.Beans);
+            Food("Milk", FoodGroup.Dairy, 1, new Color(0.97f, 0.97f, 1.00f), FoodShape.Milk, drink: true);
+            Food("Cake slice", FoodGroup.Sweet, 2, new Color(0.95f, 0.60f, 0.75f), FoodShape.CakeSlice);
+            Food("Large soda", FoodGroup.Sweet, 2, new Color(0.30f, 0.15f, 0.10f), FoodShape.Soda, drink: true);
+            Food("Fries", FoodGroup.Fried, 2, new Color(0.95f, 0.80f, 0.20f), FoodShape.Fries);
 
             Plate(foods, "A", "Plate A: Mostly grains",
                 plate: new[] { "Rice", "Bread roll", "Carrots", "Beans" },

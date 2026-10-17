@@ -7,13 +7,17 @@ using UnityEngine.EventSystems;
 namespace PlateCheck.Interaction
 {
     /// <summary>
-    /// A food on the table: a colored primitive with a world-space label. Clicks and drags come
+    /// A food on the table: a small model (see FoodModels) with a world-space label. Clicks and drags come
     /// through the EventSystem (PhysicsRaycaster on the camera), since OnMouseDown does not fire
     /// with the new Input System.
     /// </summary>
     public class FoodItemView : MonoBehaviour,
-        IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+        IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler,
+        IPointerEnterHandler, IPointerExitHandler
     {
+        const float ModelScale = 1.35f; // stylized: bigger than life so foods read at a glance
+        const float HoverScale = 1.12f;
+
         static readonly Color LabelColor = Color.white;
         static readonly Color InspectedLabelColor = new Color(0.65f, 1f, 0.65f);
 
@@ -24,7 +28,9 @@ namespace PlateCheck.Interaction
         DragController drag;
         TextMeshPro label;
         Transform cameraTransform;
+        Transform model;
         bool dragging;
+        bool hovered;
 
         public static FoodItemView Create(FoodItemData food, ScenarioController controller, DragController drag,
             Transform parent, Material labelMaterial)
@@ -32,26 +38,22 @@ namespace PlateCheck.Interaction
             var root = new GameObject("Food_" + food.Id);
             root.transform.SetParent(parent, false);
 
-            var shape = food.isDrink ? PrimitiveType.Cylinder
-                : food.foodGroup == FoodGroup.Vegetable || food.foodGroup == FoodGroup.Fruit ? PrimitiveType.Sphere
-                : PrimitiveType.Cube;
-            var visual = GameObject.CreatePrimitive(shape);
-            visual.name = "Visual";
-            visual.transform.SetParent(root.transform, false);
+            var model = new GameObject("Model").transform;
+            model.SetParent(root.transform, false);
+            FoodModels.Build(food, model);
+            model.localScale = Vector3.one * ModelScale;
 
-            float size = 0.09f + 0.03f * food.portionUnits;
-            Vector3 scale = food.isDrink ? new Vector3(0.08f, 0.04f + 0.02f * food.portionUnits, 0.08f)
-                : shape == PrimitiveType.Cube ? new Vector3(size, size * 0.5f, size)
-                : Vector3.one * size;
-            visual.transform.localScale = scale;
-            // Cylinder primitives are 2 units tall, the others 1.
-            float height = shape == PrimitiveType.Cylinder ? scale.y * 2f : scale.y;
-            visual.transform.localPosition = new Vector3(0f, height / 2f, 0f);
-            visual.GetComponent<Renderer>().material.color = food.color;
+            // One box collider around the whole model, for clicks and drags.
+            var bounds = new Bounds(root.transform.position, Vector3.zero);
+            foreach (var r in model.GetComponentsInChildren<Renderer>()) bounds.Encapsulate(r.bounds);
+            var collider = root.AddComponent<BoxCollider>();
+            collider.center = root.transform.InverseTransformPoint(bounds.center);
+            collider.size = bounds.size + new Vector3(0.01f, 0.01f, 0.01f);
+            float height = bounds.max.y - root.transform.position.y;
 
             var labelObject = new GameObject("Label");
             labelObject.transform.SetParent(root.transform, false);
-            labelObject.transform.localPosition = new Vector3(0f, height + 0.04f, 0f);
+            labelObject.transform.localPosition = new Vector3(0f, height + 0.035f, 0f);
             var label = labelObject.AddComponent<TextMeshPro>();
             label.text = food.displayName;
             label.fontSize = 0.36f;
@@ -68,6 +70,7 @@ namespace PlateCheck.Interaction
             view.controller = controller;
             view.drag = drag;
             view.label = label;
+            view.model = model;
             return view;
         }
 
@@ -79,7 +82,16 @@ namespace PlateCheck.Interaction
         void LateUpdate()
         {
             if (cameraTransform != null) label.transform.rotation = cameraTransform.rotation;
+            // Grow a little under the pointer and while held, so it is clear what can be picked up.
+            bool lifted = dragging || (hovered && controller.CanInteract);
+            float target = lifted ? ModelScale * HoverScale : ModelScale;
+            float scale = Mathf.MoveTowards(model.localScale.x, target, Time.unscaledDeltaTime * 1.5f);
+            model.localScale = new Vector3(scale, scale, scale);
         }
+
+        public void OnPointerEnter(PointerEventData eventData) => hovered = true;
+
+        public void OnPointerExit(PointerEventData eventData) => hovered = false;
 
         public void SetInspected(bool inspected) => label.color = inspected ? InspectedLabelColor : LabelColor;
 

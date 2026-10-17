@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Carrots
   foodGroup: 0
   portionUnits: 1
+  shape: 3
   color: {r: 0.98, g: 0.55, b: 0.12, a: 1}
   isDrink: 0

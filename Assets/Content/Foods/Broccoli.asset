@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Broccoli
   foodGroup: 0
   portionUnits: 2
+  shape: 1
   color: {r: 0.18, g: 0.55, b: 0.2, a: 1}
   isDrink: 0

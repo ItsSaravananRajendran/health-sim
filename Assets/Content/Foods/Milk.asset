@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Milk
   foodGroup: 4
   portionUnits: 1
+  shape: 9
   color: {r: 0.97, g: 0.97, b: 1, a: 1}
   isDrink: 1

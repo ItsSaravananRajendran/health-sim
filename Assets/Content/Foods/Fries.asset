@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Fries
   foodGroup: 6
   portionUnits: 2
+  shape: 12
   color: {r: 0.95, g: 0.8, b: 0.2, a: 1}
   isDrink: 0

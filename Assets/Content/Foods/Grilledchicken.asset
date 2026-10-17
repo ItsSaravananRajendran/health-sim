@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: Grilled chicken
   foodGroup: 3
   portionUnits: 2
+  shape: 7
   color: {r: 0.7, g: 0.45, b: 0.25, a: 1}
   isDrink: 0
