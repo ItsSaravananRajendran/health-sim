@@ -8,3 +8,10 @@ Builds/
 *.sln
 *.xml
 .vscode/
+*.slnx
+*.pidb
+*.pdb
+*.mdb
+*.unityproj
+results-*.xml
+MemoryCaptures/
