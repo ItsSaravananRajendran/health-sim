@@ -57,7 +57,7 @@ namespace PlateCheck.Interaction
             foreach (var bucket in BucketShares.AllBuckets)
             {
                 sb.Append(DebriefReport.BucketName(bucket)).Append(": ")
-                    .Append(shares.Units(bucket)).Append(" units (")
+                    .Append(shares.Units(bucket)).Append(shares.Units(bucket) == 1 ? " unit (" : " units (")
                     .Append(DebriefReport.Percent(shares.Share(bucket))).Append("%)\n");
             }
             sb.Append("Target 50 / 25 / 25 / 0");

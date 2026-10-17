@@ -28,4 +28,25 @@ Programmer / Web Developer" (health workforce training simulation, Unity and Web
 
 ## Status
 
-Planning only. No Unity project exists yet. Work through `docs/03-build-plan.md` in order.
+Steps 1 to 10 of `docs/03-build-plan.md` are done: the full loop (intro, assess, act, feedback,
+debrief, try again) plays in the editor and in a local WebGL build. Step 11 (polish, screen
+recording, hosting) is next.
+
+## Working on it
+
+| Task | Command or menu |
+|------|-----------------|
+| EditMode tests (scoring, state, content, debrief) | `unity test . --mode EditMode --output results-edit.xml` |
+| PlayMode tests (drives the Clinic scene) | `unity test . --mode PlayMode --output results-play.xml` |
+| Rebuild content, scene and project settings | menu **Plate Check** or `unity run . -- -executeMethod PlateCheck.EditorTools.SceneBuilder.BuildAll` |
+| WebGL build | `unity build . --target WebGL --execute-method PlateCheck.EditorTools.BuildScript.BuildWebGL -o Builds/WebGL` |
+| Play the build locally | `cd Builds/WebGL && python3 -m http.server 8000`, open http://localhost:8000 |
+
+- **Content** (foods, plates, counseling options) lives in `Assets/Content` as ScriptableObjects.
+  Edit them in the Inspector. `ContentBuilder` only creates assets that are missing, so it never
+  overwrites edits. If you change a plate, update the expected-score table in `docs/01-design.md`
+  and `PlateVariantTests`.
+- **The Clinic scene is generated** by `SceneBuilder`. Rebuilding it overwrites manual changes
+  to the scene. Change the builder instead.
+- Set `PLATECHECK_CAPTURE_DIR=/some/dir` when running PlayMode tests to save screenshots of each
+  phase.
