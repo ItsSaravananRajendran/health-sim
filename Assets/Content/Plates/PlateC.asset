@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4990dc58658e74a4b893bd7d63021a6b, type: 3}
+  m_Name: PlateC
+  m_EditorClassIdentifier: PlateCheck::PlateCheck.Data.PlateVariantData
+  title: 'Plate C: Already balanced'
+  plateItems:
+  - {fileID: 11400000, guid: dbe2ffbd8f00ad9d984e4d6790572e04, type: 2}
+  - {fileID: 11400000, guid: d57f0ac78e3c627738f94b6502fb4324, type: 2}
+  - {fileID: 11400000, guid: b4868c448df2258c2b233678b9c8a5ea, type: 2}
+  - {fileID: 11400000, guid: f82d5e4867ac7c7e19a8168ca07d4f1f, type: 2}
+  trayItems:
+  - {fileID: 11400000, guid: 20b6bbe36ee1b3addb12c368d5b40c76, type: 2}
+  - {fileID: 11400000, guid: 50f62bab25ad4b1fdb75727ec12c2ce8, type: 2}
+  - {fileID: 11400000, guid: d5d4bb0989af2b2f1954624e3473610d, type: 2}
+  clientLine: I've been trying to follow what we talked about last time. Is this okay?
+  counselingOptions:
+  - {fileID: 11400000, guid: e611c40f5e9ec2e9699f0f6e16ee156c, type: 2}
+  - {fileID: 11400000, guid: 985cc7eb1bc89e698a51296205958fa9, type: 2}
+  - {fileID: 11400000, guid: c7c78c4c4d3bcca079c2f557fa899b31, type: 2}
+  teachingPoint: Not every plate needs fixing. When a plate already matches the guide (half vegetables and fruit, a quarter grains, a quarter protein), say so and build on it.

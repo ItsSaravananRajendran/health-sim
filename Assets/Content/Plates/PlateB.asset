@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4990dc58658e74a4b893bd7d63021a6b, type: 3}
+  m_Name: PlateB
+  m_EditorClassIdentifier: PlateCheck::PlateCheck.Data.PlateVariantData
+  title: 'Plate B: No protein, big dessert'
+  plateItems:
+  - {fileID: 11400000, guid: d57f0ac78e3c627738f94b6502fb4324, type: 2}
+  - {fileID: 11400000, guid: d5d4bb0989af2b2f1954624e3473610d, type: 2}
+  - {fileID: 11400000, guid: b4868c448df2258c2b233678b9c8a5ea, type: 2}
+  - {fileID: 11400000, guid: 50f62bab25ad4b1fdb75727ec12c2ce8, type: 2}
+  trayItems:
+  - {fileID: 11400000, guid: f82d5e4867ac7c7e19a8168ca07d4f1f, type: 2}
+  - {fileID: 11400000, guid: 2dcbdc4ebc4ffdee59b4f35afaef86ce, type: 2}
+  - {fileID: 11400000, guid: a794cb6b3d8602df78802f65860b4fd5, type: 2}
+  - {fileID: 11400000, guid: dbe2ffbd8f00ad9d984e4d6790572e04, type: 2}
+  clientLine: I skipped the meat today, but I saved room for a big slice of cake.
+  counselingOptions:
+  - {fileID: 11400000, guid: 68892417c08c50653823cf0b73a19891, type: 2}
+  - {fileID: 11400000, guid: b2bf327438b06a956b4677f64725a815, type: 2}
+  - {fileID: 11400000, guid: e776e5e770986d681b8bc5d542c23202, type: 2}
+  teachingPoint: A quarter of the plate should be protein, such as beans, chicken, fish or eggs. Sweets are fine sometimes in small portions, not in place of a food group.

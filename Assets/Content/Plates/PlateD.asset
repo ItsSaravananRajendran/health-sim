@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4990dc58658e74a4b893bd7d63021a6b, type: 3}
+  m_Name: PlateD
+  m_EditorClassIdentifier: PlateCheck::PlateCheck.Data.PlateVariantData
+  title: 'Plate D: Sugary drink and fries'
+  plateItems:
+  - {fileID: 11400000, guid: d57f0ac78e3c627738f94b6502fb4324, type: 2}
+  - {fileID: 11400000, guid: dbe2ffbd8f00ad9d984e4d6790572e04, type: 2}
+  - {fileID: 11400000, guid: f82d5e4867ac7c7e19a8168ca07d4f1f, type: 2}
+  - {fileID: 11400000, guid: efad7ae11654eab458842c2433d2aa57, type: 2}
+  - {fileID: 11400000, guid: 8ebefdf8367e7361196fab0f80cb7461, type: 2}
+  trayItems:
+  - {fileID: 11400000, guid: b4868c448df2258c2b233678b9c8a5ea, type: 2}
+  - {fileID: 11400000, guid: e59e11ae35a1e37f28d1279c3f2bfd2e, type: 2}
+  - {fileID: 11400000, guid: d5d4bb0989af2b2f1954624e3473610d, type: 2}
+  clientLine: I always get fries and a big soda with lunch. It's just what I'm used to.
+  counselingOptions:
+  - {fileID: 11400000, guid: 45033056bd74776708e76d342a2f224e, type: 2}
+  - {fileID: 11400000, guid: b8b7e57aa9573c27983bf0d47f19ffc3, type: 2}
+  - {fileID: 11400000, guid: 8edd68ef8de315aa3983ebd2847dae9b, type: 2}
+  teachingPoint: Large sugary drinks and fried sides add a lot without filling a food group. Swapping one at a time (water or milk, a grain or vegetable side) is easier than changing everything at once.
